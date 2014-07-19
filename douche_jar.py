@@ -28,8 +28,14 @@ class Game:
 			self.players.append(Player(name))
 
 	def take_turn(self, player):
-		statement = Statement(player, input("Enter a douchey statement: "))
-		player.turns_taken += 1
+		if player.turns_taken >= self.num_turns:
+			"***SOME KIND OF GAME OVER***"
+		else:
+			statement = Statement(player, input("Enter a douchey statement: "))
+			print("Congratulations! You've accumulated an additional", statement.analyze_statement, "douchiness.")
+			player.score += statement.analyze_statement
+			print(player.name, "now has a total of", player.score, "douchiness.")
+			player.turns_taken += 1
 
 class Statement:
 	"""The Statement class stores a player's input."""
@@ -37,7 +43,8 @@ class Statement:
 	def __init__(self, player, string):
 		self.player = player 
 		self.string = string 
-		self.word_list = [] 
+		self.word_list = []
+		self.total_douchiness = 0 
 
 	def get_words(self, string):
 		"""Takes in a string statement and adds each word in the statment 
@@ -49,8 +56,11 @@ class Statement:
 		"""Analyzes the douchiness of a single word."""
 		"***INSERT CODE HERE***" 
 
-	def analyze_statement(self, word_list):
+	def analyze_statement(self):
 		"""Takes in a word list and analyzes the douchiness of the words."""
+		self.get_words(self.string)
+		for word in self.word_list:
+			self.total_douchiness += self.analyze_word(word)
 
 class Player:
 	
