@@ -6,12 +6,27 @@ from ucb import main, interact, trace
 
 class Game:
 	
-	def __init__(self, players, num_turns=10):
-		self.players = players
+	def __init__(self, num_turns=10):
+		self.players = []
 		self.num_turns = num_turns
+		num_players = 0 
+
+	def get_num_players(self):
+		while True:  
+			self.num_players = input("How many douches are there? ")
+			try:
+				self.num_players = int(self.num_players)
+				break 
+			except ValueError:
+				print("Bro I didn't get that. Enter a numeral ('1', '4', '16')")
+
+	def create_players(self):
+		for i in range(self.num_players):
+			name = input("Hey douche, what's your name? ")
+			self.players.append(Player(name))
 
 	def take_turn(self, player):
-		player_statement = input('Hey douche! Enter a douchey statement: ')
+		player_statement = input("Enter a douchey statement: ")
 		player.turns_taken += 1
 
 class Statement:
@@ -28,8 +43,26 @@ class Statement:
 		words = string.split()
 		self.word_list += words 
 
+	def analyze_word(self, word):
+		"""Analyzes the douchiness of a single word."""
+		"***INSERT CODE HERE***" 
+
 	def analyze_statement(self, word_list):
 		"""Takes in a word list and analyzes the douchiness of the words."""
+
+class Player:
+	
+	def __init__(self, name):
+		self.score = 0
+		self.name = name
+		self.turns_taken = 0
+	
+	def print_score(player):
+		print(self.score)
+	
+	def make_list(player):
+		nonlocal lst
+		lst.append(player)
 
 def play_game(args, players):
 	import argparse 
