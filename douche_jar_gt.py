@@ -61,7 +61,7 @@ class Game:
 		print("SCOREBOARD")
 		self.sort_scores()
 		for i in range(len(self.sorted_players)):
-			print(str(i+1)+".",self.sorted_players[i].name)
+			print(str(i+1)+".",self.sorted_players[i].name,"("+str(self.sorted_players[i].score)+")")
 
 
 class Statement:
