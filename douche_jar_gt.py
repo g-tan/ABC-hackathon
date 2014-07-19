@@ -28,7 +28,6 @@ class Game:
 			self.players.append(Player(name))
 
 	def take_turn(self, player):
-<<<<<<< HEAD
 		statement = Statement(player, input("Enter a douchey statement: "))
 		statement.analyze_statement()
 		player.score += statement.total_douchiness
@@ -53,18 +52,6 @@ class Game:
 
 	def print_scoreboard(self):
 
-
-
-=======
-		if player.turns_taken >= self.num_turns:
-			"***SOME KIND OF GAME OVER***"
-		else:
-			statement = Statement(player, input("Enter a douchey statement: "))
-			print("Congratulations! You've accumulated an additional", statement.analyze_statement, "douchiness.")
-			player.score += statement.analyze_statement
-			print(player.name, "now has a total of", player.score, "douchiness.")
-			player.turns_taken += 1
->>>>>>> d1856d2e2b4304588a0a569de4e7b370a1b2ec68
 
 class Statement:
 	"""The Statement class stores a player's input."""
@@ -111,26 +98,3 @@ class Player:
 
 	def print_total_score(self):
 		print(player.name, "has a total of", self.score, "douchiness.")
-
-			
-
-
-@main
-def play_game():
-	game_rounds = input("How many rounds? ")
-	game = Game(game_rounds)
-	game.get_num_players()
-	game.create_players()
-	round_number = 1
-	while round_number <= game_rounds:
-		print("GET READY FOR THE NEXT ROUND.")
-		for player in game.players:
-			print("It is now", player.name+"'s turn.")
-			player.take_turn
-		print("Round over. Here's the scoreboard:")
-		game.print_scoreboard()
-		round_number += 1
-		if round_number == game_rounds:
-			print("Game over, bro! The winner is:", game.sorted_players[0].name+".")
-		return
-		
