@@ -22,6 +22,7 @@ class Game:
 				int(self.num_players)
 				print()
 				print("Got it. There are", self.num_players, "players.")
+				print()
 				break 
 			except ValueError:
 				print("Bro I didn't get that. Enter a numeral ('1', '4', '16')")
@@ -29,6 +30,7 @@ class Game:
 	def create_players(self):
 		for i in range(int(self.num_players)):
 			name = input("Hey douche, what's your name? ")
+			print()
 			print("Got it. Added", name, "to the player list.")
 			print()
 			self.players.append(Player(name))
@@ -58,7 +60,6 @@ class Game:
 					self.sorted_players[j], self.sorted_players[i] = self.sorted_players[i], self.sorted_players[j]
 
 	def print_scoreboard(self):
-		print("SCOREBOARD")
 		self.sort_scores()
 		for i in range(len(self.sorted_players)):
 			print(str(i+1)+".",self.sorted_players[i].name,"("+str(self.sorted_players[i].score)+")")
@@ -130,12 +131,10 @@ def play_game():
 		print()
 		print("GET READY FOR THE NEXT ROUND.")
 		print()
-		print()
-		print()
 		for player in game.players:
 			print("It is now", player.name+"'s turn.")
 			game.take_turn(player)
-			print
+			print()
 		print("Round over. Here's the scoreboard:")
 		game.print_scoreboard()
 		game.sort_scores()
