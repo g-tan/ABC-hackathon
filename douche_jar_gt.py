@@ -90,7 +90,7 @@ class Statement:
 		score = 0
 		for word in self.word_list:
 			if word_sentiments.get(word) != None:
-				score += -1*word_sentiments.get(word)
+				score += word_sentiments.get(word)
 				counter += 1
 		if counter != 0:
 			self.total_douchiness += score/counter
