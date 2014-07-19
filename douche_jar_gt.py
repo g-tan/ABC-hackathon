@@ -15,7 +15,7 @@ class Game:
 		while True:  
 			self.num_players = input("How many douches are there? ")
 			try:
-				self.num_players = int(self.num_players)
+				int(self.num_players)
 				print("Got it. There are", self.num_players, "players.")
 				break 
 			except ValueError:
@@ -29,8 +29,9 @@ class Game:
 
 	def take_turn(self, player):
 		statement = Statement(player, input("Enter a douchey statement: "))
-		player.score += statement.analyze_statement
-		player.print_added_score(statement.analyze_statement)
+		statement.analyze_statement()
+		player.score += statement.total_douchiness
+		player.print_added_score(statement.total_douchiness)
 		player.print_total_score
 
 	def play_round(self):
@@ -42,6 +43,15 @@ class Game:
 				print("Game Over. Good job douches!")
 				"***SOME FUNCTION PRINTING OUT SCOREBOARD***"
 				break 
+
+	def sort_scores(self):
+		min_score = float('inf')
+		for player in self.players[:]: 
+			if player.score < min_score:
+				self.players 
+
+	def print_scoreboard(self):
+
 
 class Statement:
 	"""The Statement class stores a player's input."""
@@ -76,6 +86,12 @@ class Player:
 
 	def print_name(self):
 		print(self.name)
+
+	def print_score(self):
+		print(self.score)
+
+	def update_score(self, added_score):
+		self.score += added_score
 	
 	def print_added_score(self, added_score):
 		print("Congratulations! You've accumulated an additional", added_score, "douchiness.")
