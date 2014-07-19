@@ -54,14 +54,14 @@ class Game:
 		self.sorted_players = self.players[0:]
 		for i in range(len(self.sorted_players)):
 			for j in range(i+1, len(self.sorted_players)):
-				if self.sorted_players[j].score < self.sorted_players[i].score:
-					self.sorted_players[j].score, self.sorted_players[i].score = self.sorted_players[i].score, self.sorted_players[j].score
+				if self.sorted_players[j].score > self.sorted_players[i].score:
+					self.sorted_players[j], self.sorted_players[i] = self.sorted_players[i], self.sorted_players[j]
 
 	def print_scoreboard(self):
-		self.sort_scores()
 		print("SCOREBOARD")
+		self.sort_scores()
 		for i in range(len(self.sorted_players)):
-			print(str(i+1)+".", self.sorted_players[i].name)
+			print(str(i+1)+".",self.sorted_players[i].name)
 
 
 class Statement:
@@ -112,6 +112,7 @@ class Player:
 		self.score += added_score
 	
 	def print_added_score(self, added_score):
+		print()
 		print("Congratulations! You've accumulated an additional", added_score, "douchiness.")
 		print()
 
