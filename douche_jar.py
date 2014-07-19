@@ -44,6 +44,7 @@ class Game:
 				print("Game Over. Good job douches!")
 				"***SOME FUNCTION PRINTING OUT SCOREBOARD***"
 				break 
+	
 	def sort_scores(self):
 		self.sorted_players = self.players[0:]
 		for i in range(len(self.sorted_players)):
