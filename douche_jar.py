@@ -44,14 +44,20 @@ class Game:
 				print("Game Over. Good job douches!")
 				"***SOME FUNCTION PRINTING OUT SCOREBOARD***"
 				break 
-
 	def sort_scores(self):
-		min_score = float('inf')
-		for player in self.players[:]: 
-			if player.score < min_score:
-				self.players 
+		self.sorted_players = self.players[0:]
+		for i in range(len(self.sorted_players)):
+        	for j in range(i+1, len(self.sorted_players)):
+            	if self.sorted_players[j] < self.sorted_players[i]:
+                	self.sorted_players[j], self.sorted_players[i] = self.sorted_players[i], self.sorted_players[j]
+
+
 
 	def print_scoreboard(self):
+		print("SCOREBOARD")
+		for i in range(len(self.sorted_players)):
+			print((b+1)+".", self.sorted_players[i].name)
+
 
 
 
@@ -132,5 +138,4 @@ def play_game():
 		round_number += 1
 		if round_number == game_rounds:
 			print("Game over, bro! The winner is:", game.sorted_players[0].name+".")
-		return
 		
