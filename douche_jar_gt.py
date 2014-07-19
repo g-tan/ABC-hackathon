@@ -9,7 +9,8 @@ class Game:
 	def __init__(self, num_turns=10):
 		self.players = []
 		self.num_turns = num_turns
-		num_players = 0 
+		self.num_players = 0
+		self.sorted_players = []  
 
 	def get_num_players(self):
 		while True:  
@@ -44,12 +45,6 @@ class Game:
 				"***SOME FUNCTION PRINTING OUT SCOREBOARD***"
 				break 
 
-	def sort_scores(self):
-		min_score = float('inf')
-		for player in self.players[:]: 
-			if player.score < min_score:
-				self.players 
-
 	def print_scoreboard(self):
 
 
@@ -62,21 +57,28 @@ class Statement:
 		self.word_list = []
 		self.total_douchiness = 0 
 
-	def get_words(self, string):
-		"""Takes in a string statement and adds each word in the statment 
-		to the word list."""
-		words = string.split()
-		self.word_list += words 
-
-	def analyze_word(self, word):
-		"""Analyzes the douchiness of a single word."""
-		"***INSERT CODE HERE***" 
+	def extract_words(text):
+    """Returns the words in a string in a list, not including punctuation."""
+	    return_text = ""
+	    for character in text:
+	        if character in ascii_letters:
+	            return_text += character
+	        else:
+	            return_text += " "
+	    self.word_list += return_text.split() 
 
 	def analyze_statement(self):
-		"""Takes in a word list and analyzes the douchiness of the words."""
-		self.get_words(self.string)
+		"""Analyzes the douchiness of the words in statment."""
+		self.extract_words(self.string)
+		counter = 0
+		score = 0
+		inFile = open("douchejar_dictionary.cvs")
 		for word in self.word_list:
-			self.total_douchiness += self.analyze_word(word)
+			if word in inFile:
+				score += inFile[word]
+				counter += 1
+		inFile.close()
+		self.total_douchiness += score/counter
 
 class Player:
 	
