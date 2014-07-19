@@ -3,6 +3,8 @@
 import random
 import sys
 from ucb import main, interact, trace
+from string import ascii_letters
+from data import word_sentiments
 
 class Game:
 	
@@ -14,18 +16,21 @@ class Game:
 
 	def get_num_players(self):
 		while True:  
+			print()
 			self.num_players = input("How many douches are there? ")
 			try:
 				int(self.num_players)
+				print()
 				print("Got it. There are", self.num_players, "players.")
 				break 
 			except ValueError:
 				print("Bro I didn't get that. Enter a numeral ('1', '4', '16')")
 
 	def create_players(self):
-		for i in range(self.num_players):
+		for i in range(int(self.num_players)):
 			name = input("Hey douche, what's your name? ")
 			print("Got it. Added", name, "to the player list.")
+			print()
 			self.players.append(Player(name))
 
 	def take_turn(self, player):
@@ -45,7 +50,18 @@ class Game:
 				"***SOME FUNCTION PRINTING OUT SCOREBOARD***"
 				break 
 
+	def sort_scores(self):
+		self.sorted_players = self.players[0:]
+		for i in range(len(self.sorted_players)):
+			for j in range(i+1, len(self.sorted_players)):
+				if self.sorted_players[j].score < self.sorted_players[i].score:
+					self.sorted_players[j].score, self.sorted_players[i].score = self.sorted_players[i].score, self.sorted_players[j].score
+
 	def print_scoreboard(self):
+		self.sort_scores()
+		print("SCOREBOARD")
+		for i in range(len(self.sorted_players)):
+			print(str(i+1)+".", self.sorted_players[i].name)
 
 
 class Statement:
@@ -57,29 +73,29 @@ class Statement:
 		self.word_list = []
 		self.total_douchiness = 0 
 
-	def extract_words(text):
-    """Returns the words in a string in a list, not including punctuation."""
-	    return_text = ""
-	    for character in text:
-	        if character in ascii_letters:
-	            return_text += character
-	        else:
-	            return_text += " "
-	    self.word_list += return_text.split() 
+	def extract_words(self, text):
+		"""Returns the words in a string in a list, not including punctuation."""
+		return_text = ""
+		for character in text:
+			if character in ascii_letters:
+				return_text += character
+			else:
+				return_text += " "
+		self.word_list += return_text.split() 
 
 	def analyze_statement(self):
 		"""Analyzes the douchiness of the words in statment."""
 		self.extract_words(self.string)
 		counter = 0
 		score = 0
-		inFile = open("douchejar_dictionary.cvs")
 		for word in self.word_list:
-			if word in inFile:
-				score += inFile[word]
+			if word_sentiments.get(word) != None:
+				score += -1*word_sentiments.get(word)
 				counter += 1
-		inFile.close()
-		self.total_douchiness += score/counter
+		if counter != 0:
+			self.total_douchiness += score/counter
 
+	  
 class Player:
 	
 	def __init__(self, name):
@@ -97,6 +113,33 @@ class Player:
 	
 	def print_added_score(self, added_score):
 		print("Congratulations! You've accumulated an additional", added_score, "douchiness.")
+		print()
 
 	def print_total_score(self):
 		print(player.name, "has a total of", self.score, "douchiness.")
+
+@main
+def play_game():
+	game_rounds = int(input("How many rounds? "))
+	game = Game(game_rounds)
+	game.get_num_players()
+	game.create_players()
+	round_number = 1
+	while round_number <= game_rounds:
+		print()
+		print("GET READY FOR THE NEXT ROUND.")
+		print()
+		print()
+		print()
+		for player in game.players:
+			print("It is now", player.name+"'s turn.")
+			game.take_turn(player)
+			print
+		print("Round over. Here's the scoreboard:")
+		game.print_scoreboard()
+		game.sort_scores()
+		if round_number == game_rounds:
+			print()
+			print("Game over, bro! The winner is: "+game.sorted_players[0].name+".")
+		round_number += 1
+
