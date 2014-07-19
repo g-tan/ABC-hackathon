@@ -16,6 +16,7 @@ class Game:
 			self.num_players = input("How many douches are there? ")
 			try:
 				self.num_players = int(self.num_players)
+				print("Got it. There are", self.num_players, "players.")
 				break 
 			except ValueError:
 				print("Bro I didn't get that. Enter a numeral ('1', '4', '16')")
@@ -23,10 +24,11 @@ class Game:
 	def create_players(self):
 		for i in range(self.num_players):
 			name = input("Hey douche, what's your name? ")
+			print("Got it. Added", name, "to the player list.")
 			self.players.append(Player(name))
 
 	def take_turn(self, player):
-		player_statement = input("Enter a douchey statement: ")
+		statement = Statement(player, input("Enter a douchey statement: "))
 		player.turns_taken += 1
 
 class Statement:
