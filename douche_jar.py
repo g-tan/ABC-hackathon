@@ -15,7 +15,7 @@ class Game:
 		while True:  
 			self.num_players = input("How many douches are there? ")
 			try:
-				self.num_players = int(self.num_players)
+				int(self.num_players)
 				print("Got it. There are", self.num_players, "players.")
 				break 
 			except ValueError:
@@ -29,7 +29,31 @@ class Game:
 
 	def take_turn(self, player):
 		statement = Statement(player, input("Enter a douchey statement: "))
-		player.turns_taken += 1
+		statement.analyze_statement()
+		player.score += statement.total_douchiness
+		player.print_added_score(statement.total_douchiness)
+		player.print_total_score
+
+	def play_round(self):
+		while True: 
+			for player in self.players:
+				self.take_turn(player)
+			num_turns -= 1	
+			if self.num_turns <= 0:
+				print("Game Over. Good job douches!")
+				"***SOME FUNCTION PRINTING OUT SCOREBOARD***"
+				break 
+
+	def sort_scores(self):
+		min_score = float('inf')
+		for player in self.players[:]: 
+			if player.score < min_score:
+				self.players 
+
+	def print_scoreboard(self):
+
+
+
 
 class Statement:
 	"""The Statement class stores a player's input."""
@@ -37,7 +61,8 @@ class Statement:
 	def __init__(self, player, string):
 		self.player = player 
 		self.string = string 
-		self.word_list = [] 
+		self.word_list = []
+		self.total_douchiness = 0 
 
 	def get_words(self, string):
 		"""Takes in a string statement and adds each word in the statment 
@@ -49,22 +74,52 @@ class Statement:
 		"""Analyzes the douchiness of a single word."""
 		"***INSERT CODE HERE***" 
 
-	def analyze_statement(self, word_list):
+	def analyze_statement(self):
 		"""Takes in a word list and analyzes the douchiness of the words."""
+		self.get_words(self.string)
+		for word in self.word_list:
+			self.total_douchiness += self.analyze_word(word)
 
 class Player:
 	
 	def __init__(self, name):
 		self.score = 0
 		self.name = name
-		self.turns_taken = 0
-	
-	def print_score(player):
-		print(self.score)
-	
-	def make_list(player):
-		nonlocal lst
-		lst.append(player)
 
-def play_game(args, players):
-	import argparse 
+	def print_name(self):
+		print(self.name)
+
+	def print_score(self):
+		print(self.score)
+
+	def update_score(self, added_score):
+		self.score += added_score
+	
+	def print_added_score(self, added_score):
+		print("Congratulations! You've accumulated an additional", added_score, "douchiness.")
+
+	def print_total_score(self):
+		print(player.name, "has a total of", self.score, "douchiness.")
+
+			
+
+
+@main
+def play_game():
+	game_rounds = input("How many rounds? ")
+	game = Game(game_rounds)
+	game.get_num_players()
+	game.create_players()
+	round_number = 1
+	while round_number <= game_rounds:
+		print("GET READY FOR THE NEXT ROUND.")
+		for player in game.players:
+			print("It is now", player.name+"'s turn.")
+			player.take_turn
+		print("Round over. Here's the scoreboard:")
+		game.print_scoreboard()
+		round_number += 1
+		if round_number == game_rounds:
+			print("Game over, bro! The winner is:", game.sorted_players[0].name+".")
+		return
+		
